@@ -15,9 +15,13 @@ namespace Icicle.WPF
         private Window _window;
         private List<WPFControl> _controls = new List<WPFControl>();
 
+        private RoutedEventHandler _buttonClickHandler;
+
         public WPFViewRenderer(Window window)
         {
             _window = window;
+
+            _buttonClickHandler = new RoutedEventHandler(OnButtonClick);
         }
 
         public void Render(View view, View? oldView)
@@ -37,7 +41,7 @@ namespace Icicle.WPF
 
                     if (isNew)
                     {
-                        wpfButton.AddHandler(WPFButton.ClickEvent, new RoutedEventHandler(OnButtonClick));
+                        wpfButton.AddHandler(WPFButton.ClickEvent, _buttonClickHandler);
                     }
 
                     wpfContent = wpfButton;
@@ -46,6 +50,16 @@ namespace Icicle.WPF
 
             if (oldView != null)
             {
+                foreach (var unusedControl in _controls.Where(x => x.Tag == null))
+                {
+                    switch (unusedControl)
+                    {
+                        case WPFButton wpfButton:
+                            wpfButton.RemoveHandler(WPFButton.ClickEvent, _buttonClickHandler);
+                            break;
+                    }
+                }
+
                 _controls.RemoveAll(x => x.Tag == null);
             }
 
