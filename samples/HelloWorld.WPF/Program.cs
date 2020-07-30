@@ -1,4 +1,6 @@
 ﻿using System;
+using Icicle;
+using Icicle.Controls;
 using Icicle.WPF;
 
 namespace HelloWorld.WPF
@@ -8,8 +10,10 @@ namespace HelloWorld.WPF
         [STAThread]
         public static void Main()
         {
+            Func<View> render = () => new Button("Hello World!");
+
             var viewEngine = new WPFViewEngine();
-            viewEngine.Run();
+            viewEngine.Run(render);
         }
     }
 }

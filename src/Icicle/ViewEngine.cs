@@ -6,6 +6,23 @@ namespace Icicle
 {
     public abstract class ViewEngine
     {
-        public abstract void Run();
+        private Func<View> _render;
+
+        public void Run(Func<View> render)
+        {
+            _render = render;
+            
+            Initialize();
+        }
+
+        protected abstract void Initialize();
+
+        protected void OnStarted()
+        {
+            var view = _render();
+            UpdateView(view);
+        }
+
+        protected abstract void UpdateView(View view);
     }
 }
