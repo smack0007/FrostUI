@@ -25,23 +25,28 @@ namespace Icicle.WPF
         private Window _window;
         private WPFViewRenderer _renderer;
 
-        protected override void Initialize()
+        public WPFViewEngine()
         {
             _window = new Window();
-
             _renderer = new WPFViewRenderer(_window);
 
-            _app = new App(() =>
-            {
-                OnStarted();
-                _window.Show();
-            });
+            _app = new App(() => OnAppStarted());
+        }
+
+        protected override void Initialize()
+        {
             _app.Run();
         }
 
-        protected override void UpdateView(View view)
+        private void OnAppStarted()
         {
-            _renderer.Render(view);
+            OnStarted();
+            _window.Show();
+        }
+
+        protected override void UpdateView(View view, View? oldView)
+        {
+            _renderer.Render(view, oldView);
         }
     }
 }

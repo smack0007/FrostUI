@@ -1,6 +1,6 @@
 ﻿using System;
 using Icicle;
-using Icicle.Controls;
+using Icicle.Views;
 using Icicle.WPF;
 
 namespace HelloWorld.WPF
@@ -10,10 +10,16 @@ namespace HelloWorld.WPF
         [STAThread]
         public static void Main()
         {
-            Func<View> render = () => new Button("Hello World!");
+            var clicks = new State<int>();
 
-            var viewEngine = new WPFViewEngine();
-            viewEngine.Run(render);
+            Func<View> render = () => new Button(
+                text: $"Clicks: {clicks.Value}",
+                onClick: () =>
+                {
+                    clicks.Value++;
+                });
+
+            new WPFViewEngine().Run(render, clicks);
         }
     }
 }
