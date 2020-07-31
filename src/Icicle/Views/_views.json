@@ -1,0 +1,13 @@
+{
+    "Button": {
+        "Properties": {
+            "Text": "string",
+            "OnClick": "Action?"
+        }
+    },
+    "Label": {
+        "Properties": {
+            "Text": "string"
+        }
+    }
+}

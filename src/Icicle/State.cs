@@ -12,7 +12,7 @@ namespace Icicle
 
     public class State<T> : State
     {
-        private T _value = default;
+        private T _value = default!;
 
         public T Value
         {

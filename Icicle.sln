@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Icicle", "src\Icicle\Icicle
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Icicle", "Icicle", "{AD294D39-E824-4C78-AC54-0CC852576915}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
@@ -20,6 +21,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Icicle.WPF", "src\Icicle.WPF\Icicle.WPF.csproj", "{5A779DBA-8684-44A1-B01E-BC61CFDC73B8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorld.WPF", "samples\HelloWorld.WPF\HelloWorld.WPF.csproj", "{D797D6DE-7117-485A-8C6C-9FFB0D7B7A81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{DE791CA6-DAF6-4268-991C-00A42DA2B61A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator", "tools\CodeGenerator\CodeGenerator.csproj", "{CE320F67-A6B7-4473-BD75-C6D348EF7D86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +72,18 @@ Global
 		{D797D6DE-7117-485A-8C6C-9FFB0D7B7A81}.Release|x64.Build.0 = Release|Any CPU
 		{D797D6DE-7117-485A-8C6C-9FFB0D7B7A81}.Release|x86.ActiveCfg = Release|Any CPU
 		{D797D6DE-7117-485A-8C6C-9FFB0D7B7A81}.Release|x86.Build.0 = Release|Any CPU
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86}.Debug|x64.Build.0 = Debug|Any CPU
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86}.Debug|x86.Build.0 = Debug|Any CPU
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86}.Release|x64.ActiveCfg = Release|Any CPU
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86}.Release|x64.Build.0 = Release|Any CPU
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86}.Release|x86.ActiveCfg = Release|Any CPU
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +94,8 @@ Global
 		{8B74068B-A738-4BA9-A994-18B5CF1F0FD1} = {AD294D39-E824-4C78-AC54-0CC852576915}
 		{5A779DBA-8684-44A1-B01E-BC61CFDC73B8} = {8D87D0F0-ADCC-49C5-8A02-9F36D9CC65C6}
 		{D797D6DE-7117-485A-8C6C-9FFB0D7B7A81} = {8B74068B-A738-4BA9-A994-18B5CF1F0FD1}
+		{DE791CA6-DAF6-4268-991C-00A42DA2B61A} = {AD294D39-E824-4C78-AC54-0CC852576915}
+		{CE320F67-A6B7-4473-BD75-C6D348EF7D86} = {DE791CA6-DAF6-4268-991C-00A42DA2B61A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A0DE9D0-3D77-49B7-9CA5-3338878816C1}
