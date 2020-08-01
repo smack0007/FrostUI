@@ -1,79 +1,145 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Windows;
 using Icicle.Views;
 
-using WPFControl = System.Windows.Controls.Control;
 using WPFButton = System.Windows.Controls.Button;
-using System.Linq;
+using WPFGrid = System.Windows.Controls.Grid;
+using WPFTextBlock = System.Windows.Controls.TextBlock;
+using WPFView = System.Windows.FrameworkElement;
+using WPFWindow = System.Windows.Window;
 
 namespace Icicle.WPF
 {
     public class WPFViewRenderer
     {
-        private Window _window;
-        private List<WPFControl> _controls = new List<WPFControl>();
+        private readonly WPFViewEngine _engine;
+        private readonly WPFWindow _window;
+        
+        private readonly List<WPFView> _wpfViews = new List<WPFView>();
 
         private RoutedEventHandler _buttonClickHandler;
 
-        public WPFViewRenderer(Window window)
+        public WPFViewRenderer(WPFViewEngine engine, WPFWindow window)
         {
+            _engine = engine;
             _window = window;
 
             _buttonClickHandler = new RoutedEventHandler(OnButtonClick);
         }
 
-        public void Render(View view, View? oldView)
+        public void Render(View view)
         {
-            if (oldView != null)
+            foreach (var wpfView in _wpfViews)
             {
-                foreach (var control in _controls)
-                    control.Tag = null;
+                wpfView.Tag = null;
             }
 
-            object? wpfContent = null;
+            _window.Content = RenderWPFView(view);
+
+            foreach (var unusedWPFView in _wpfViews.Where(x => x.Tag == null))
+            {
+                switch (unusedWPFView)
+                {
+                    case WPFButton wpfButton:
+                        wpfButton.RemoveHandler(WPFButton.ClickEvent, _buttonClickHandler);
+                        break;
+                }
+            }
+
+            _wpfViews.RemoveAll(x => x.Tag == null);
+        }
+
+        private WPFView RenderWPFView(View view)
+        {
+            bool isNew;
+
             switch (view)
             {
                 case Button button:
-                    var wpfButton = GetControl<WPFButton>(button, out var isNew);
-                    wpfButton.Content = button.Text;
-
-                    if (isNew)
                     {
-                        wpfButton.AddHandler(WPFButton.ClickEvent, _buttonClickHandler);
+                        var wpfButton = GetControl<WPFButton>(button, out isNew);
+                        wpfButton.Content = button.Text;
+
+                        if (isNew)
+                        {
+                            wpfButton.AddHandler(WPFButton.ClickEvent, _buttonClickHandler);
+                        }
+
+                        return wpfButton;
                     }
 
-                    wpfContent = wpfButton;
-                    break;
-            }
-
-            if (oldView != null)
-            {
-                foreach (var unusedControl in _controls.Where(x => x.Tag == null))
-                {
-                    switch (unusedControl)
+                case HStack hStack:
                     {
-                        case WPFButton wpfButton:
-                            wpfButton.RemoveHandler(WPFButton.ClickEvent, _buttonClickHandler);
-                            break;
-                    }
-                }
+                        var wpfGrid = GetControl<WPFGrid>(hStack, out isNew);
 
-                _controls.RemoveAll(x => x.Tag == null);
+                        wpfGrid.ColumnDefinitions.Clear();
+                        wpfGrid.RowDefinitions.Clear();
+                        wpfGrid.Children.Clear();
+
+                        var gridLength = new System.Windows.GridLength(100.0 / hStack.Children.Count, GridUnitType.Star);
+
+                        for (int i = 0; i < hStack.Children.Count; i++)
+                        {
+                            var child = hStack.Children[i];
+                            var wpfChild = RenderWPFView(child);
+
+                            WPFGrid.SetColumn(wpfChild, i);
+                            WPFGrid.SetRow(wpfChild, 0);
+
+                            wpfGrid.Children.Add(wpfChild);
+                            wpfGrid.ColumnDefinitions.Add(new System.Windows.Controls.ColumnDefinition() { Width = gridLength });
+                        }
+
+                        return wpfGrid;
+                    }
+
+                case Label label:
+                    {
+                        var wpfLabel = GetControl<WPFTextBlock>(label, out isNew);
+                        wpfLabel.Text = label.Text;
+
+                        return wpfLabel;
+                    }
+
+                case VStack vStack:
+                    {
+                        var wpfGrid = GetControl<WPFGrid>(vStack, out isNew);
+
+                        wpfGrid.ColumnDefinitions.Clear();
+                        wpfGrid.RowDefinitions.Clear();
+                        wpfGrid.Children.Clear();
+
+                        var gridLength = new System.Windows.GridLength(100.0 / vStack.Children.Count, GridUnitType.Star);
+
+                        for (int i = 0; i < vStack.Children.Count; i++)
+                        {
+                            var child = vStack.Children[i];
+                            var wpfChild = RenderWPFView(child);
+
+                            WPFGrid.SetColumn(wpfChild, 0);
+                            WPFGrid.SetRow(wpfChild, i);
+
+                            wpfGrid.Children.Add(wpfChild);
+                            wpfGrid.RowDefinitions.Add(new System.Windows.Controls.RowDefinition() { Height = gridLength });
+                        }
+
+                        return wpfGrid;
+                    }
             }
 
-            _window.Content = wpfContent;
+            throw new NotImplementedException($"View type {view.GetType()} not implemented in {nameof(WPFViewRenderer)}.{nameof(RenderWPFView)}.");
         }
 
         private T GetControl<T>(View view, out bool isNew)
-            where T : WPFControl, new()
+            where T : WPFView, new()
         {
             isNew = false;
             T? result = null;
             T? resultWithoutView = null;
 
-            foreach (var control in _controls.Where(x => x.GetType() == typeof(T)))
+            foreach (var control in _wpfViews.Where(x => x.GetType() == typeof(T)))
             {
                 if (control.Tag == view)
                 {
@@ -96,7 +162,7 @@ namespace Icicle.WPF
                 {
                     isNew = true;
                     result = new T();
-                    _controls.Add(result);
+                    _wpfViews.Add(result);
                 }
             }
 
@@ -109,7 +175,7 @@ namespace Icicle.WPF
             var wpfButton = (WPFButton)sender;
             var button = (Button)wpfButton.Tag;
 
-            button.OnClick?.Invoke();
+            _engine.OnButtonClickInternal(button);
         }
     }
 }

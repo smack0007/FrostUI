@@ -35,6 +35,7 @@ namespace CodeGenerator
             var output = new StringBuilder(1024);
 
             output.AppendLine("using System;");
+            output.AppendLine("using System.Collections.Generic;");
             output.AppendLine();
 
             output.AppendLine("namespace Icicle.Views");

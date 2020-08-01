@@ -10,16 +10,57 @@ namespace HelloWorld.WPF
         [STAThread]
         public static void Main()
         {
-            var clicks = new State<int>();
+            var clicks = 0;
 
-            Func<View> render = () => new Button(
-                text: $"Clicks: {clicks.Value}",
-                onClick: () =>
-                {
-                    clicks.Value++;
-                });
+            Func<View> render = () => new HStack(
+                children: new View[] {
+                    new VStack(
+                        children: new View[] {
+                            new Label(
+                                text: $"Clicks: {clicks}"
+                            ),
+                            new Label(
+                                text: $"Clicks: {clicks}"
+                            ),
+                            new Label(
+                                text: $"Clicks: {clicks}"
+                            )
+                        }
+                    ),
+                    new VStack(
+                        children: new View[] {
+                            new Label(
+                                text: $"Clicks: {clicks}"
+                            ),
+                            new Button(
+                                text: $"Clicks: {clicks}",
+                                onClick: () =>
+                                {
+                                    clicks++;
+                                }
+                            ),
+                            new Label(
+                                text: $"Clicks: {clicks}"
+                            )
+                        }
+                    ),
+                    new VStack(
+                        children: new View[] {
+                            new Label(
+                                text: $"Clicks: {clicks}"
+                            ),
+                            new Label(
+                                text: $"Clicks: {clicks}"
+                            ),
+                            new Label(
+                                text: $"Clicks: {clicks}"
+                            )
+                        }
+                    )
+                }
+            );
 
-            new WPFViewEngine().Run(render, clicks);
+            new WPFViewEngine().Run(render);
         }
     }
 }

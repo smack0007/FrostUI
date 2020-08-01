@@ -5,9 +5,19 @@
             "OnClick": "Action?"
         }
     },
+    "HStack": {
+        "Properties": {
+            "Children": "IReadOnlyList<View>"
+        }
+    },
     "Label": {
         "Properties": {
             "Text": "string"
+        }
+    },
+    "VStack": {
+        "Properties": {
+            "Children": "IReadOnlyList<View>"
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Icicle.Views;
 
 namespace Icicle.WPF
 {
@@ -28,7 +29,7 @@ namespace Icicle.WPF
         public WPFViewEngine()
         {
             _window = new Window();
-            _renderer = new WPFViewRenderer(_window);
+            _renderer = new WPFViewRenderer(this, _window);
 
             _app = new App(() => OnAppStarted());
         }
@@ -44,9 +45,14 @@ namespace Icicle.WPF
             _window.Show();
         }
 
-        protected override void UpdateView(View view, View? oldView)
+        protected override void UpdateView(View view)
         {
-            _renderer.Render(view, oldView);
+            _renderer.Render(view);
+        }
+
+        internal void OnButtonClickInternal(Button button)
+        {
+            OnButtonClick(button);
         }
     }
 }

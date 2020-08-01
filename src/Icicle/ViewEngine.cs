@@ -1,4 +1,5 @@
 ﻿using System;
+using Icicle.Views;
 
 namespace Icicle
 {
@@ -8,34 +9,11 @@ namespace Icicle
 
         private View? _view;
 
-        public ViewEngine()
+        public void Run(Func<View> render)
         {
-            
-        }
-
-        public void Run(Func<View> render, params State[] state)
-        {
-            void OnStateChanged(object sender, EventArgs e) => Render();
-
-            if (state != null)
-            {
-                foreach (var item in state)
-                {
-                    item.Changed += OnStateChanged;
-                }
-            }
-
             _render = render;
 
             Initialize();
-
-            if (state != null)
-            {
-                foreach (var item in state)
-                {
-                    item.Changed -= OnStateChanged;
-                }
-            }
         }
 
         protected abstract void Initialize();
@@ -45,10 +23,16 @@ namespace Icicle
         private void Render()
         {
             var view = _render!();
-            UpdateView(view, _view);
+            UpdateView(view);
             _view = view;
         }
 
-        protected abstract void UpdateView(View view, View? oldView);
+        protected abstract void UpdateView(View view);
+
+        protected void OnButtonClick(Button button)
+        {
+            button.OnClick?.Invoke();
+            Render();
+        }
     }
 }
