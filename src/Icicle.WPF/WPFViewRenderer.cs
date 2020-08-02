@@ -60,7 +60,7 @@ namespace Icicle.WPF
                 case Button button:
                     {
                         var wpfButton = GetControl<WPFButton>(button, out isNew);
-                        wpfButton.Content = button.Text;
+                        wpfButton.Content = RenderWPFView(button.Label);
 
                         if (isNew)
                         {

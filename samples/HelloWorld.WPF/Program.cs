@@ -25,7 +25,7 @@ namespace HelloWorld.WPF
                         new View[] {
                             new Text($"Clicks: {clicks}"),
                             new Button(
-                                "Click me!",
+                                (Text)"Click me!",
                                 onClick: () =>
                                 {
                                     clicks++;

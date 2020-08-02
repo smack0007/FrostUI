@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Icicle.Views
 {
-	public class VStack : View
+	public partial class VStack : View
 	{
 		public IReadOnlyList<View> Children { get; }
 

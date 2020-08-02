@@ -1,8 +1,8 @@
 {
     "Button": {
         "Properties": {
-            "Text": {
-                "Type": "string",
+            "Label": {
+                "Type": "View",
                 "Required": true
             },
             "OnClick": {

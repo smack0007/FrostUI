@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Icicle.Views
 {
-	public class Text : View
+	public partial class Text : View
 	{
 		public string Value { get; }
 

@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 namespace Icicle.Views
 {
-	public class Button : View
+	public partial class Button : View
 	{
-		public string Text { get; }
+		public View Label { get; }
 
 		public Action? OnClick { get; }
 
 		public Button(
-			string text,
+			View label,
 			Action? onClick = default)
 		{
-			 Text = text;
+			 Label = label;
 			 OnClick = onClick;
 		}
 	}

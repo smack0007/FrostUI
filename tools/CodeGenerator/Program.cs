@@ -41,7 +41,7 @@ namespace CodeGenerator
 
             output.AppendLine("namespace Icicle.Views");
             output.AppendLine("{");
-            output.AppendLine($"\tpublic class {viewName} : View");
+            output.AppendLine($"\tpublic partial class {viewName} : View");
             output.AppendLine("\t{");
             
             foreach (var property in viewData.Properties)
