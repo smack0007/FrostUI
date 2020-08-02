@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ namespace Icicle.Views
 		public Action? OnClick { get; }
 
 		public Button(
-			string text = default,
+			string text,
 			Action? onClick = default)
 		{
 			 Text = text;

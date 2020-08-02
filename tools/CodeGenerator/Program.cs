@@ -34,6 +34,7 @@ namespace CodeGenerator
 
             var output = new StringBuilder(1024);
 
+            output.AppendLine("#nullable enable");
             output.AppendLine("using System;");
             output.AppendLine("using System.Collections.Generic;");
             output.AppendLine();
@@ -45,7 +46,7 @@ namespace CodeGenerator
             
             foreach (var property in viewData.Properties)
             {
-                output.AppendLine($"\t\tpublic {property.Value} {property.Key} {{ get; }}");
+                output.AppendLine($"\t\tpublic {property.Value.Type} {property.Key} {{ get; }}");
                 output.AppendLine();
             }
 
@@ -54,7 +55,10 @@ namespace CodeGenerator
             for (int i = 0; i < propertiesArray.Length; i++)
             {
                 var property = propertiesArray[i];
-                output.Append($"\t\t\t{property.Value} {property.Key.FirstLetterToLower()} = default");
+                output.Append($"\t\t\t{property.Value.Type} {property.Key.FirstLetterToLower()}");
+
+                if (!property.Value.Required)
+                    output.Append($" = {property.Value.Default}");
 
                 if (i < propertiesArray.Length - 1)
                     output.AppendLine(",");

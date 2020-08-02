@@ -1,23 +1,37 @@
 {
     "Button": {
         "Properties": {
-            "Text": "string",
-            "OnClick": "Action?"
+            "Text": {
+                "Type": "string",
+                "Required": true
+            },
+            "OnClick": {
+                "Type": "Action?"
+            }
         }
     },
     "HStack": {
         "Properties": {
-            "Children": "IReadOnlyList<View>"
+            "Children": {
+                "Type": "IReadOnlyList<View>",
+                "Required": true
+            }
         }
     },
-    "Label": {
+    "Text": {
         "Properties": {
-            "Text": "string"
+            "Value": {
+                "Type": "string",
+                "Required": true
+            }
         }
     },
     "VStack": {
         "Properties": {
-            "Children": "IReadOnlyList<View>"
+            "Children": {
+                "Type": "IReadOnlyList<View>",
+                "Required": true
+            }
         }
     }
 }

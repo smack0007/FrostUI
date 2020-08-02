@@ -15,46 +15,30 @@ namespace HelloWorld.WPF
             Func<View> render = () => new HStack(
                 children: new View[] {
                     new VStack(
-                        children: new View[] {
-                            new Label(
-                                text: $"Clicks: {clicks}"
-                            ),
-                            new Label(
-                                text: $"Clicks: {clicks}"
-                            ),
-                            new Label(
-                                text: $"Clicks: {clicks}"
-                            )
+                        new View[] {
+                            new Text($"Clicks: {clicks}"),
+                            new Text($"Clicks: {clicks}"),
+                            new Text($"Clicks: {clicks}"),
                         }
                     ),
                     new VStack(
-                        children: new View[] {
-                            new Label(
-                                text: $"Clicks: {clicks}"
-                            ),
+                        new View[] {
+                            new Text($"Clicks: {clicks}"),
                             new Button(
-                                text: $"Clicks: {clicks}",
+                                "Click me!",
                                 onClick: () =>
                                 {
                                     clicks++;
                                 }
                             ),
-                            new Label(
-                                text: $"Clicks: {clicks}"
-                            )
+                            new Text($"Clicks: {clicks}"),
                         }
                     ),
                     new VStack(
-                        children: new View[] {
-                            new Label(
-                                text: $"Clicks: {clicks}"
-                            ),
-                            new Label(
-                                text: $"Clicks: {clicks}"
-                            ),
-                            new Label(
-                                text: $"Clicks: {clicks}"
-                            )
+                        new View[] {
+                            new Text($"Clicks: {clicks}"),
+                            new Text($"Clicks: {clicks}"),
+                            new Text($"Clicks: {clicks}")
                         }
                     )
                 }

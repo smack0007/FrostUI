@@ -95,10 +95,10 @@ namespace Icicle.WPF
                         return wpfGrid;
                     }
 
-                case Label label:
+                case Text text:
                     {
-                        var wpfLabel = GetControl<WPFTextBlock>(label, out isNew);
-                        wpfLabel.Text = label.Text;
+                        var wpfLabel = GetControl<WPFTextBlock>(text, out isNew);
+                        wpfLabel.Text = text.Value;
 
                         return wpfLabel;
                     }

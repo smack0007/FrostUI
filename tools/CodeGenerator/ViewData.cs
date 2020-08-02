@@ -4,6 +4,6 @@ namespace CodeGenerator
 {
     public class ViewData
     {
-        public Dictionary<string, string> Properties { get; set; } = default!;
+        public Dictionary<string, ViewPropertyData> Properties { get; set; } = default!;
     }
 }

@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace Icicle.Views
 		public IReadOnlyList<View> Children { get; }
 
 		public VStack(
-			IReadOnlyList<View> children = default)
+			IReadOnlyList<View> children)
 		{
 			 Children = children;
 		}
