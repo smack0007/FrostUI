@@ -2,6 +2,6 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
   <ItemGroup>
-    <ProjectReference Include="$(RepositoryRootDirectory)src\Icicle\Icicle.csproj" />
+    <ProjectReference Include="$(RepositoryRootDirectory)src\FrostUI\FrostUI.csproj" />
   </ItemGroup>
 </Project>

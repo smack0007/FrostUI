@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace Icicle.Views
+namespace FrostUI.Views
 {
-	public partial class HStack : View
+	public partial class VStack : View
 	{
 		public IReadOnlyList<View> Children { get; }
 
-		public HStack(
+		public VStack(
 			IReadOnlyList<View> children)
 		{
 			 Children = children;

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Icicle\Icicle.csproj" />
+    <ProjectReference Include="..\FrostUI\FrostUI.csproj" />
   </ItemGroup>
 
 </Project>

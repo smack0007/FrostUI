@@ -1,7 +1,7 @@
 ﻿using System;
-using Icicle;
-using Icicle.Views;
-using Icicle.WPF;
+using FrostUI;
+using FrostUI.Views;
+using FrostUI.WPF;
 
 namespace HelloWorld.WPF
 {

@@ -1,4 +1,4 @@
-﻿namespace Icicle
+﻿namespace FrostUI
 {
     public abstract class View
     {

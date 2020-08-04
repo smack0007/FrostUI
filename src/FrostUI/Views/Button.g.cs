@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Icicle.Views
+namespace FrostUI.Views
 {
 	public partial class Button : View
 	{

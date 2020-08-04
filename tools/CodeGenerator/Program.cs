@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace CodeGenerator
 {
@@ -14,7 +13,7 @@ namespace CodeGenerator
         static void Main(string[] args)
         {
             var repositoryPath = Path.GetFullPath(Path.Combine(Assembly.GetEntryAssembly()!.Location, "..", "..", "..", "..", ".."));
-            var viewsPath = Path.Combine(repositoryPath, "src", "Icicle", "Views");
+            var viewsPath = Path.Combine(repositoryPath, "src", "FrostUI", "Views");
 
             var views = JsonSerializer.Deserialize<Dictionary<string, ViewData>>(File.ReadAllText(Path.Combine(viewsPath, "_views.json")));
 
@@ -39,7 +38,7 @@ namespace CodeGenerator
             output.AppendLine("using System.Collections.Generic;");
             output.AppendLine();
 
-            output.AppendLine("namespace Icicle.Views");
+            output.AppendLine("namespace FrostUI.Views");
             output.AppendLine("{");
             output.AppendLine($"\tpublic partial class {viewName} : View");
             output.AppendLine("\t{");

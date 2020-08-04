@@ -1,7 +1,7 @@
 ﻿using System;
-using Icicle.Views;
+using FrostUI.Views;
 
-namespace Icicle
+namespace FrostUI
 {
     public abstract class ViewEngine
     {

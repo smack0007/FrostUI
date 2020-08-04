@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using Icicle.Views;
+using FrostUI.Views;
 
 using WPFButton = System.Windows.Controls.Button;
 using WPFGrid = System.Windows.Controls.Grid;
@@ -10,7 +10,7 @@ using WPFTextBlock = System.Windows.Controls.TextBlock;
 using WPFView = System.Windows.FrameworkElement;
 using WPFWindow = System.Windows.Window;
 
-namespace Icicle.WPF
+namespace FrostUI.WPF
 {
     public class WPFViewRenderer
     {

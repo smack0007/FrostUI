@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
-using Icicle.Views;
+using FrostUI.Views;
 
-namespace Icicle.WPF
+namespace FrostUI.WPF
 {
     public class WPFViewEngine : ViewEngine
     {

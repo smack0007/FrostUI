@@ -1,4 +1,4 @@
-﻿namespace Icicle.Views
+﻿namespace FrostUI.Views
 {
     public partial class Text
     {
