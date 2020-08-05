@@ -7,44 +7,50 @@ namespace HelloWorld.WPF
 {
     public static class Program
     {
+        class HelloWorldView : View
+        {
+            public State<int> Clicks { get; } = 0;
+
+            public HelloWorldView()
+            {
+                Content = new HStack(
+                    children: new View[] {
+                        new VStack(
+                            new View[] {
+                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                            }
+                        ),
+                        new VStack(
+                            new View[] {
+                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new Button(
+                                    "Click me!",
+                                    onClick: () =>
+                                    {
+                                        Clicks.Value++;
+                                    }
+                                ),
+                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                            }
+                        ),
+                        new VStack(
+                            new View[] {
+                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                            }
+                        )
+                    }
+                );
+            }
+        }
+
         [STAThread]
         public static void Main()
         {
-            var clicks = 0;
-
-            Func<View> render = () => new HStack(
-                children: new View[] {
-                    new VStack(
-                        new View[] {
-                            new Text($"Clicks: {clicks}"),
-                            new Text($"Clicks: {clicks}"),
-                            new Text($"Clicks: {clicks}"),
-                        }
-                    ),
-                    new VStack(
-                        new View[] {
-                            new Text($"Clicks: {clicks}"),
-                            new Button(
-                                (Text)"Click me!",
-                                onClick: () =>
-                                {
-                                    clicks++;
-                                }
-                            ),
-                            new Text($"Clicks: {clicks}"),
-                        }
-                    ),
-                    new VStack(
-                        new View[] {
-                            new Text($"Clicks: {clicks}"),
-                            new Text($"Clicks: {clicks}"),
-                            new Text($"Clicks: {clicks}")
-                        }
-                    )
-                }
-            );
-
-            new WPFViewEngine().Run(render);
+            new WPFViewEngine().Run(new HelloWorldView());
         }
     }
 }

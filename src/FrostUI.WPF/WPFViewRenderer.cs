@@ -36,7 +36,7 @@ namespace FrostUI.WPF
                 wpfView.Tag = null;
             }
 
-            _window.Content = RenderWPFView(view);
+            _window.Content = RenderWPFView(view.Content);
 
             foreach (var unusedWPFView in _wpfViews.Where(x => x.Tag == null))
             {
@@ -60,7 +60,7 @@ namespace FrostUI.WPF
                 case Button button:
                     {
                         var wpfButton = GetControl<WPFButton>(button, out isNew);
-                        wpfButton.Content = RenderWPFView(button.Label);
+                        wpfButton.Content = button.Label;
 
                         if (isNew)
                         {
@@ -98,7 +98,7 @@ namespace FrostUI.WPF
                 case Text text:
                     {
                         var wpfLabel = GetControl<WPFTextBlock>(text, out isNew);
-                        wpfLabel.Text = text.Value;
+                        wpfLabel.Text = text.Value.GetValue();
 
                         return wpfLabel;
                     }

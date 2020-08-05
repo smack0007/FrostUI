@@ -6,12 +6,14 @@ namespace FrostUI.Views
 {
 	public partial class Text : View
 	{
-		public string Value { get; }
+		public StateValue<string> Value { get; }
 
 		public Text(
-			string value)
+			StateValue<string> value)
+            : base(false)
 		{
 			 Value = value;
+            InitializeState();
 		}
 	}
 }
