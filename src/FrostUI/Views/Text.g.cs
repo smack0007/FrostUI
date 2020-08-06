@@ -10,10 +10,10 @@ namespace FrostUI.Views
 
 		public Text(
 			StateValue<string> value)
-            : base(false)
+			: base(false)
 		{
-			 Value = value;
-            InitializeState();
+			Value = value;
+			InitializeState();
 		}
 	}
 }

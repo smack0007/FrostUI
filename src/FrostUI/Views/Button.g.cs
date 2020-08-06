@@ -13,9 +13,11 @@ namespace FrostUI.Views
 		public Button(
 			string label,
 			Action? onClick = default)
+			: base(false)
 		{
-			 Label = label;
-			 OnClick = onClick;
+			Label = label;
+			OnClick = onClick;
+			InitializeState();
 		}
 	}
 }

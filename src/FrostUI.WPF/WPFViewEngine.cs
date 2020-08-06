@@ -45,9 +45,14 @@ namespace FrostUI.WPF
             _window.Show();
         }
 
-        protected override void UpdateView(View view)
+        protected override object Render(View view, object? renderedView)
         {
-            _renderer.Render(view);
+            var result = _renderer.Render(view == RootView ? view.Content : view, renderedView);
+
+            if (view == RootView)
+                _window.Content = result;
+
+            return result;
         }
 
         internal void OnButtonClickInternal(Button button)

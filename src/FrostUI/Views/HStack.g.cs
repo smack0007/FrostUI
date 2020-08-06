@@ -10,8 +10,10 @@ namespace FrostUI.Views
 
 		public HStack(
 			IReadOnlyList<View> children)
+			: base(false)
 		{
-			 Children = children;
+			Children = children;
+			InitializeState();
 		}
 	}
 }

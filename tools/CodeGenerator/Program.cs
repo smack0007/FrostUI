@@ -65,10 +65,13 @@ namespace CodeGenerator
                     output.AppendLine(")");
             }
 
+            output.AppendLine("\t\t\t: base(false)");
             output.AppendLine("\t\t{");
             
             foreach (var property in viewData.Properties)
-                output.AppendLine($"\t\t\t {property.Key} = {property.Key.FirstLetterToLower()};");
+                output.AppendLine($"\t\t\t{property.Key} = {property.Key.FirstLetterToLower()};");
+
+            output.AppendLine($"\t\t\tInitializeState();");
 
             output.AppendLine("\t\t}");
             output.AppendLine("\t}");

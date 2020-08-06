@@ -8,6 +8,8 @@ namespace FrostUI
 
         internal ViewEngine? ViewEngine { get; set; }
 
+        internal object? RenderedView { get; set; }
+
         public View Content
         {
             get => _content;
@@ -30,7 +32,7 @@ namespace FrostUI
 
         protected void InitializeState()
         {
-            foreach (var property in GetType().GetProperties().Where(x => typeof(State<>).IsAssignableFrom(x.PropertyType)))
+            foreach (var property in GetType().GetProperties().Where(x => typeof(State).IsAssignableFrom(x.PropertyType)))
             {
                 var state = property.GetValue(this) as State;
 

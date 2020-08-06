@@ -5,26 +5,31 @@ namespace FrostUI
 {
     public abstract class ViewEngine
     {
-        private View? _root = null;
+        protected View? RootView { get; private set; }
 
         public void Run(View root)
         {
-            _root = root;
-            _root.ViewEngine = this;
+            RootView = root;
+            RootView.ViewEngine = this;
 
             Initialize();
 
-            _root.ViewEngine = null;
+            RootView.ViewEngine = null;
         }
 
         protected abstract void Initialize();
 
         protected void OnStarted()
         {
-            UpdateView(_root!);
+            UpdateView(RootView!);
         }
 
-        protected internal abstract void UpdateView(View view);
+        protected internal void UpdateView(View view)
+        {
+            view.RenderedView = Render(view, view.RenderedView);
+        }
+
+        protected abstract object Render(View view, object? renderedView);
 
         protected void OnButtonClick(Button button)
         {

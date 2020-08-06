@@ -16,8 +16,6 @@ namespace FrostUI.WPF
     {
         private readonly WPFViewEngine _engine;
         private readonly WPFWindow _window;
-        
-        private readonly List<WPFView> _wpfViews = new List<WPFView>();
 
         private RoutedEventHandler _buttonClickHandler;
 
@@ -29,51 +27,34 @@ namespace FrostUI.WPF
             _buttonClickHandler = new RoutedEventHandler(OnButtonClick);
         }
 
-        public void Render(View view)
+        public WPFView Render(View view, object? renderedView)
         {
-            foreach (var wpfView in _wpfViews)
-            {
-                wpfView.Tag = null;
-            }
-
-            _window.Content = RenderWPFView(view.Content);
-
-            foreach (var unusedWPFView in _wpfViews.Where(x => x.Tag == null))
-            {
-                switch (unusedWPFView)
-                {
-                    case WPFButton wpfButton:
-                        wpfButton.RemoveHandler(WPFButton.ClickEvent, _buttonClickHandler);
-                        break;
-                }
-            }
-
-            _wpfViews.RemoveAll(x => x.Tag == null);
-        }
-
-        private WPFView RenderWPFView(View view)
-        {
-            bool isNew;
-
             switch (view)
             {
                 case Button button:
                     {
-                        var wpfButton = GetControl<WPFButton>(button, out isNew);
-                        wpfButton.Content = button.Label;
+                        var wpfButton = renderedView as WPFButton;
 
-                        if (isNew)
+                        if (wpfButton == null)
                         {
+                            wpfButton = new WPFButton();
                             wpfButton.AddHandler(WPFButton.ClickEvent, _buttonClickHandler);
                         }
+
+                        wpfButton.Tag = view;
+                        wpfButton.Content = button.Label;
 
                         return wpfButton;
                     }
 
                 case HStack hStack:
                     {
-                        var wpfGrid = GetControl<WPFGrid>(hStack, out isNew);
+                        var wpfGrid = renderedView as WPFGrid;
 
+                        if (wpfGrid == null)
+                            wpfGrid = new WPFGrid();
+
+                        wpfGrid.Tag = view;
                         wpfGrid.ColumnDefinitions.Clear();
                         wpfGrid.RowDefinitions.Clear();
                         wpfGrid.Children.Clear();
@@ -83,7 +64,7 @@ namespace FrostUI.WPF
                         for (int i = 0; i < hStack.Children.Count; i++)
                         {
                             var child = hStack.Children[i];
-                            var wpfChild = RenderWPFView(child);
+                            var wpfChild = Render(child, null);
 
                             WPFGrid.SetColumn(wpfChild, i);
                             WPFGrid.SetRow(wpfChild, 0);
@@ -97,7 +78,12 @@ namespace FrostUI.WPF
 
                 case Text text:
                     {
-                        var wpfLabel = GetControl<WPFTextBlock>(text, out isNew);
+                        var wpfLabel = renderedView as WPFTextBlock;
+
+                        if (wpfLabel == null)
+                            wpfLabel = new WPFTextBlock();
+
+                        wpfLabel.Tag = view;
                         wpfLabel.Text = text.Value.GetValue();
 
                         return wpfLabel;
@@ -105,8 +91,12 @@ namespace FrostUI.WPF
 
                 case VStack vStack:
                     {
-                        var wpfGrid = GetControl<WPFGrid>(vStack, out isNew);
+                        var wpfGrid = renderedView as WPFGrid;
 
+                        if (wpfGrid == null)
+                            wpfGrid = new WPFGrid();
+
+                        wpfGrid.Tag = view;
                         wpfGrid.ColumnDefinitions.Clear();
                         wpfGrid.RowDefinitions.Clear();
                         wpfGrid.Children.Clear();
@@ -116,7 +106,7 @@ namespace FrostUI.WPF
                         for (int i = 0; i < vStack.Children.Count; i++)
                         {
                             var child = vStack.Children[i];
-                            var wpfChild = RenderWPFView(child);
+                            var wpfChild = Render(child, null);
 
                             WPFGrid.SetColumn(wpfChild, 0);
                             WPFGrid.SetRow(wpfChild, i);
@@ -129,45 +119,7 @@ namespace FrostUI.WPF
                     }
             }
 
-            throw new NotImplementedException($"View type {view.GetType()} not implemented in {nameof(WPFViewRenderer)}.{nameof(RenderWPFView)}.");
-        }
-
-        private T GetControl<T>(View view, out bool isNew)
-            where T : WPFView, new()
-        {
-            isNew = false;
-            T? result = null;
-            T? resultWithoutView = null;
-
-            foreach (var control in _wpfViews.Where(x => x.GetType() == typeof(T)))
-            {
-                if (control.Tag == view)
-                {
-                    result = (T)control;
-                    break;
-                }
-                else if (control.Tag == null && resultWithoutView == null)
-                {
-                    resultWithoutView = (T)control;
-                }
-            }
-
-            if (result == null)
-            {
-                if (resultWithoutView != null)
-                {
-                    result = resultWithoutView;
-                }
-                else
-                {
-                    isNew = true;
-                    result = new T();
-                    _wpfViews.Add(result);
-                }
-            }
-
-            result.Tag = view;
-            return result;
+            throw new NotImplementedException($"View type {view.GetType()} not implemented in {nameof(WPFViewRenderer)}.{nameof(Render)}.");
         }
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
