@@ -13,18 +13,21 @@ namespace HelloWorld.WPF
 
             public HelloWorldView()
             {
-                Content = new HStack(
-                    children: new View[] {
-                        new VStack(
+                Content = new StackLayout(
+                    Orientation.Horizontal,
+                    new View[] {
+                        new StackLayout(
+                            Orientation.Vertical,
                             new View[] {
-                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
-                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
-                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
                             }
                         ),
-                        new VStack(
+                        new StackLayout(
+                            Orientation.Vertical,
                             new View[] {
-                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
                                 new Button(
                                     "Click me!",
                                     onClick: () =>
@@ -32,16 +35,17 @@ namespace HelloWorld.WPF
                                         Clicks.Value++;
                                     }
                                 ),
-                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
                             }
                         ),
-                        new VStack(
+                        new StackLayout(
+                            Orientation.Vertical,
                             new View[] {
-                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
-                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
-                                new Text(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
                             }
-                        )
+                        ),
                     }
                 );
             }

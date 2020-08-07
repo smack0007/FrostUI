@@ -47,7 +47,7 @@ namespace FrostUI.WPF
                         return wpfButton;
                     }
 
-                case HStack hStack:
+                case StackLayout stackLayout:
                     {
                         var wpfGrid = renderedView as WPFGrid;
 
@@ -59,24 +59,35 @@ namespace FrostUI.WPF
                         wpfGrid.RowDefinitions.Clear();
                         wpfGrid.Children.Clear();
 
-                        var gridLength = new System.Windows.GridLength(100.0 / hStack.Children.Count, GridUnitType.Star);
+                        var gridLength = new System.Windows.GridLength(100.0 / stackLayout.Children.Count, GridUnitType.Star);
 
-                        for (int i = 0; i < hStack.Children.Count; i++)
+                        for (int i = 0; i < stackLayout.Children.Count; i++)
                         {
-                            var child = hStack.Children[i];
+                            var child = stackLayout.Children[i];
                             var wpfChild = Render(child, null);
 
-                            WPFGrid.SetColumn(wpfChild, i);
-                            WPFGrid.SetRow(wpfChild, 0);
+                            if (stackLayout.Orientation == Orientation.Horizontal)
+                            {
+                                WPFGrid.SetColumn(wpfChild, i);
+                                WPFGrid.SetRow(wpfChild, 0);
+                                
+                                wpfGrid.ColumnDefinitions.Add(new System.Windows.Controls.ColumnDefinition() { Width = gridLength });
+                            }
+                            else
+                            {
+                                WPFGrid.SetRow(wpfChild, i);
+                                WPFGrid.SetColumn(wpfChild, 0);
 
-                            wpfGrid.Children.Add(wpfChild);
-                            wpfGrid.ColumnDefinitions.Add(new System.Windows.Controls.ColumnDefinition() { Width = gridLength });
+                                wpfGrid.RowDefinitions.Add(new System.Windows.Controls.RowDefinition() { Height = gridLength });
+                            }
+                            
+                            wpfGrid.Children.Add(wpfChild);                                
                         }
 
                         return wpfGrid;
                     }
 
-                case Text text:
+                case TextBlock textBlock:
                     {
                         var wpfLabel = renderedView as WPFTextBlock;
 
@@ -84,38 +95,9 @@ namespace FrostUI.WPF
                             wpfLabel = new WPFTextBlock();
 
                         wpfLabel.Tag = view;
-                        wpfLabel.Text = text.Value.GetValue();
+                        wpfLabel.Text = textBlock.Value;
 
                         return wpfLabel;
-                    }
-
-                case VStack vStack:
-                    {
-                        var wpfGrid = renderedView as WPFGrid;
-
-                        if (wpfGrid == null)
-                            wpfGrid = new WPFGrid();
-
-                        wpfGrid.Tag = view;
-                        wpfGrid.ColumnDefinitions.Clear();
-                        wpfGrid.RowDefinitions.Clear();
-                        wpfGrid.Children.Clear();
-
-                        var gridLength = new System.Windows.GridLength(100.0 / vStack.Children.Count, GridUnitType.Star);
-
-                        for (int i = 0; i < vStack.Children.Count; i++)
-                        {
-                            var child = vStack.Children[i];
-                            var wpfChild = Render(child, null);
-
-                            WPFGrid.SetColumn(wpfChild, 0);
-                            WPFGrid.SetRow(wpfChild, i);
-
-                            wpfGrid.Children.Add(wpfChild);
-                            wpfGrid.RowDefinitions.Add(new System.Windows.Controls.RowDefinition() { Height = gridLength });
-                        }
-
-                        return wpfGrid;
                     }
             }
 

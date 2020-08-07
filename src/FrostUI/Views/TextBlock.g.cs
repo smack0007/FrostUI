@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace FrostUI.Views
 {
-	public partial class Text : View
+	public partial class TextBlock : View
 	{
 		public State<string> Value { get; }
 
-		public Text(
+		public TextBlock(
 			State<string> value)
 			: base(false)
 		{

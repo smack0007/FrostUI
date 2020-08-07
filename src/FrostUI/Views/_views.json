@@ -10,26 +10,22 @@
             }
         }
     },
-    "HStack": {
+    "StackLayout": {
         "Properties": {
+            "Orientation": {
+                "Type": "State<Orientation>",
+                "Required": true
+            },
             "Children": {
                 "Type": "IReadOnlyList<View>",
                 "Required": true
             }
         }
     },
-    "Text": {
+    "TextBlock": {
         "Properties": {
             "Value": {
                 "Type": "State<string>",
-                "Required": true
-            }
-        }
-    },
-    "VStack": {
-        "Properties": {
-            "Children": {
-                "Type": "IReadOnlyList<View>",
                 "Required": true
             }
         }

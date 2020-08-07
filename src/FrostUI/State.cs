@@ -32,6 +32,8 @@ namespace FrostUI
         public override string ToString() => GetValue()?.ToString() ?? "";
 
         public static implicit operator State<T>(T value) => new ConstState<T>(value);
+
+        public static implicit operator T(State<T> state) => state.GetValue();
     }
 
     public class ConstState<T> : State<T>
