@@ -4,7 +4,7 @@ using FrostUI.Views;
 
 namespace FrostUI.WPF
 {
-    public class WPFViewEngine : ViewEngine
+    public partial class WPFViewEngine : ViewEngine
     {
         class App : Application
         {
@@ -24,12 +24,11 @@ namespace FrostUI.WPF
 
         private App _app;
         private Window _window;
-        private WPFViewRenderer _renderer;
 
         public WPFViewEngine()
         {
             _window = new Window();
-            _renderer = new WPFViewRenderer(this, _window);
+            InitializeRenderWPFView();
 
             _app = new App(() => OnAppStarted());
         }
@@ -47,17 +46,12 @@ namespace FrostUI.WPF
 
         protected override object Render(View view, object? renderedView)
         {
-            var result = _renderer.Render(view == RootView ? view.Content : view, renderedView);
+            var result = RenderWPFView(view == RootView ? view.Content : view, renderedView);
 
             if (view == RootView)
                 _window.Content = result;
 
             return result;
-        }
-
-        internal void OnButtonClickInternal(Button button)
-        {
-            OnButtonClick(button);
         }
     }
 }

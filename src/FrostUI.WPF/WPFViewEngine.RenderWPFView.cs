@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using FrostUI.Views;
 
@@ -8,26 +6,19 @@ using WPFButton = System.Windows.Controls.Button;
 using WPFGrid = System.Windows.Controls.Grid;
 using WPFTextBlock = System.Windows.Controls.TextBlock;
 using WPFView = System.Windows.FrameworkElement;
-using WPFWindow = System.Windows.Window;
 
 namespace FrostUI.WPF
 {
-    public class WPFViewRenderer
+    public partial class WPFViewEngine
     {
-        private readonly WPFViewEngine _engine;
-        private readonly WPFWindow _window;
+        private RoutedEventHandler? _buttonClickHandler;
 
-        private RoutedEventHandler _buttonClickHandler;
-
-        public WPFViewRenderer(WPFViewEngine engine, WPFWindow window)
+        private void InitializeRenderWPFView()
         {
-            _engine = engine;
-            _window = window;
-
             _buttonClickHandler = new RoutedEventHandler(OnButtonClick);
         }
 
-        public WPFView Render(View view, object? renderedView)
+        public WPFView RenderWPFView(View view, object? renderedView)
         {
             switch (view)
             {
@@ -64,7 +55,7 @@ namespace FrostUI.WPF
                         for (int i = 0; i < stackLayout.Children.Count; i++)
                         {
                             var child = stackLayout.Children[i];
-                            var wpfChild = Render(child, null);
+                            var wpfChild = RenderWPFView(child, null);
 
                             if (stackLayout.Orientation == Orientation.Horizontal)
                             {
@@ -101,7 +92,7 @@ namespace FrostUI.WPF
                     }
             }
 
-            throw new NotImplementedException($"View type {view.GetType()} not implemented in {nameof(WPFViewRenderer)}.{nameof(Render)}.");
+            throw new NotImplementedException($"View type {view.GetType()} not implemented in {nameof(WPFViewEngine)}.{nameof(RenderWPFView)}.");
         }
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
@@ -109,7 +100,7 @@ namespace FrostUI.WPF
             var wpfButton = (WPFButton)sender;
             var button = (Button)wpfButton.Tag;
 
-            _engine.OnButtonClickInternal(button);
+            OnButtonClick(button);
         }
     }
 }
