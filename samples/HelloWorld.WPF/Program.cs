@@ -9,7 +9,7 @@ namespace HelloWorld.WPF
     {
         class HelloWorldView : View
         {
-            public State<int> Clicks { get; } = 0;
+            public MutableState<int> Clicks { get; } = 0;
 
             public HelloWorldView()
             {

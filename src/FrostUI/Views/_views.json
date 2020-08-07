@@ -2,7 +2,7 @@
     "Button": {
         "Properties": {
             "Label": {
-                "Type": "string",
+                "Type": "State<string>",
                 "Required": true
             },
             "OnClick": {
@@ -21,7 +21,7 @@
     "Text": {
         "Properties": {
             "Value": {
-                "Type": "StateValue<string>",
+                "Type": "State<string>",
                 "Required": true
             }
         }

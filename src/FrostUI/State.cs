@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FrostUI
 {
-    public class State
+    public abstract class State
     {
         internal View? View { get; set; }
 
@@ -22,14 +21,34 @@ namespace FrostUI
 
             View?.OnStateChanged(this);
         }
+
+        public BindState<U> Bind<U>(Func<U> bind) => new BindState<U>(this, bind);
     }
 
-    public abstract class StateValue<T> : State
+    public abstract class State<T> : State
     {
         public abstract T GetValue();
+
+        public override string ToString() => GetValue()?.ToString() ?? "";
+
+        public static implicit operator State<T>(T value) => new ConstState<T>(value);
     }
 
-    public class State<T> : StateValue<T>
+    public class ConstState<T> : State<T>
+    {
+        public T Value { get; }
+
+        public ConstState(T value)
+        {
+            Value = value;
+        }
+
+        public override T GetValue() => Value;
+
+        public static implicit operator ConstState<T>(T value) => new ConstState<T>(value);
+    }
+
+    public class MutableState<T> : State<T>
     {
         private T _value;
 
@@ -44,21 +63,17 @@ namespace FrostUI
             }
         }
 
-        public State(T defaultValue = default)
+        public MutableState(T defaultValue = default)
         {
             _value = defaultValue;
         }
 
-        public override string ToString() => Value?.ToString() ?? "";
-
         public override T GetValue() => Value;
 
-        public static implicit operator State<T>(T value) => new State<T>(value);
-
-        public BindState<U> Bind<U>(Func<U> bind) => new BindState<U>(this, bind);
+        public static implicit operator MutableState<T>(T value) => new MutableState<T>(value);
     }
 
-    public class BindState<T> : StateValue<T>
+    public class BindState<T> : State<T>
     {
         private Func<T> _bind;
 
