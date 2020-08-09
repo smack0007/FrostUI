@@ -7,7 +7,7 @@ namespace HelloWorld.WPF
 {
     public static class Program
     {
-        class HelloWorldView : View
+        class HelloWorldView : ContentView
         {
             public MutableState<int> Clicks { get; } = 0;
 
@@ -19,15 +19,15 @@ namespace HelloWorld.WPF
                         new StackLayout(
                             Orientation.Vertical,
                             new View[] {
-                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
-                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
-                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new TextBlock(Clicks.Bind(x => $"Clicks: {x}")),
+                                new TextBlock(Clicks.Bind(x => $"Clicks: {x}")),
+                                new TextBlock(Clicks.Bind(x => $"Clicks: {x}")),
                             }
                         ),
                         new StackLayout(
                             Orientation.Vertical,
                             new View[] {
-                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new TextBlock(Clicks.Bind(x => $"Clicks: {x}")),
                                 new Button(
                                     "Click me!",
                                     onClick: () =>
@@ -35,15 +35,15 @@ namespace HelloWorld.WPF
                                         Clicks.Value++;
                                     }
                                 ),
-                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new TextBlock(Clicks.Bind(x => $"Clicks: {x}")),
                             }
                         ),
                         new StackLayout(
                             Orientation.Vertical,
                             new View[] {
-                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
-                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
-                                new TextBlock(Clicks.Bind(() => $"Clicks: {Clicks}")),
+                                new TextBlock(Clicks.Bind(x => $"Clicks: {x}")),
+                                new TextBlock(Clicks.Bind(x => $"Clicks: {x}")),
+                                new TextBlock(Clicks.Bind(x => $"Clicks: {x}")),
                             }
                         ),
                     }

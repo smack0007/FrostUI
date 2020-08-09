@@ -46,7 +46,7 @@ namespace FrostUI.WPF
 
         protected override object Render(View view, object? renderedView)
         {
-            var result = RenderWPFView(view == RootView ? view.Content : view, renderedView);
+            var result = RenderWPFView(view == RootView ? RootView.Content! : view, renderedView);
 
             if (view == RootView)
                 _window.Content = result;

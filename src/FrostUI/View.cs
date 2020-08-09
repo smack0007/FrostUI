@@ -2,27 +2,11 @@
 
 namespace FrostUI
 {
-    public abstract class View
+    public abstract class View : IStateListener
     {
-        private View _content;
-
         internal ViewEngine? ViewEngine { get; set; }
 
         internal object? RenderedView { get; set; }
-
-        public View Content
-        {
-            get => _content;
-
-            set
-            {
-                if (value != _content)
-                {
-                    _content = value;
-                    OnContentChanged();
-                }
-            }
-        }
 
         public View(bool initializeState = true)
         {
@@ -39,17 +23,13 @@ namespace FrostUI
                 if (state == null)
                     throw new FrostUIException($"{GetType().FullName}.{property.Name} was null. All state properties are required to be initialized.");
 
-                state.View = this;
+                state.Subscribe(this);
             }
         }
 
-        internal void OnStateChanged(State state)
+        void IStateListener.OnStateChanged(State state)
         {
             ViewEngine?.UpdateView(this);
-        }
-
-        private void OnContentChanged()
-        {
         }
     }
 }

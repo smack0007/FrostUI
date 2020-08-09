@@ -5,9 +5,9 @@ namespace FrostUI
 {
     public abstract class ViewEngine
     {
-        protected View? RootView { get; private set; }
+        protected ContentView? RootView { get; private set; }
 
-        public void Run(View root)
+        public void Run(ContentView root)
         {
             RootView = root;
             RootView.ViewEngine = this;
