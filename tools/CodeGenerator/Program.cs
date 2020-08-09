@@ -13,18 +13,18 @@ namespace CodeGenerator
         static void Main(string[] args)
         {
             var repositoryPath = Path.GetFullPath(Path.Combine(Assembly.GetEntryAssembly()!.Location, "..", "..", "..", "..", ".."));
-            var viewsPath = Path.Combine(repositoryPath, "src", "FrostUI", "Views");
+            var controlsPath = Path.Combine(repositoryPath, "src", "FrostUI", "Controls");
 
-            var views = JsonSerializer.Deserialize<Dictionary<string, ViewData>>(File.ReadAllText(Path.Combine(viewsPath, "_views.json")));
+            var views = JsonSerializer.Deserialize<Dictionary<string, ControlData>>(File.ReadAllText(Path.Combine(controlsPath, "_controls.json")));
 
-            Console.WriteLine("Generating views...");
+            Console.WriteLine("Generating controls...");
             foreach (var view in views)
             {
-                GenerateView(viewsPath, view.Key, view.Value);
+                GenerateView(controlsPath, view.Key, view.Value);
             }
         }
 
-        private static void GenerateView(string viewsPath, string viewName, ViewData viewData)
+        private static void GenerateView(string viewsPath, string viewName, ControlData viewData)
         {
             var viewFileName = Path.Combine(viewsPath, viewName + ".g.cs");
             Console.WriteLine($"{viewName} => {viewFileName}");
@@ -38,7 +38,7 @@ namespace CodeGenerator
             output.AppendLine("using System.Collections.Generic;");
             output.AppendLine();
 
-            output.AppendLine("namespace FrostUI.Views");
+            output.AppendLine("namespace FrostUI.Controls");
             output.AppendLine("{");
             output.AppendLine($"\tpublic partial class {viewName} : View");
             output.AppendLine("\t{");

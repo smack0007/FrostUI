@@ -1,5 +1,5 @@
 ﻿using System;
-using FrostUI.Views;
+using FrostUI.Controls;
 
 namespace FrostUI
 {

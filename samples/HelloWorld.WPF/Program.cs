@@ -1,6 +1,6 @@
 ﻿using System;
 using FrostUI;
-using FrostUI.Views;
+using FrostUI.Controls;
 using FrostUI.WPF;
 
 namespace HelloWorld.WPF

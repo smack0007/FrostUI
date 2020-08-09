@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FrostUI.Views
+namespace FrostUI.Controls
 {
 	public partial class TextBlock : View
 	{

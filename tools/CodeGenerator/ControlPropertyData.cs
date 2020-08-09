@@ -1,6 +1,6 @@
 ﻿namespace CodeGenerator
 {
-    public class ViewPropertyData
+    public class ControlPropertyData
     {
         public string Type { get; set; } = "";
 

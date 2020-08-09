@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using FrostUI.Views;
+using FrostUI.Controls;
 
 using WPFButton = System.Windows.Controls.Button;
 using WPFGrid = System.Windows.Controls.Grid;

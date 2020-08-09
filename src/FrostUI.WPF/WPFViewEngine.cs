@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using FrostUI.Views;
+using FrostUI.Controls;
 
 namespace FrostUI.WPF
 {
